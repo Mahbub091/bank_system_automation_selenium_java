@@ -12,9 +12,9 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
     int element_wait_max = 60;
     int element_wait_min = 30;
-    int pause_normal = 1;
-    int pause_long = 2;
-    int pause_extended = 3;
+    int test_wait_normal = 1;
+    int test_wait_long = 2;
+    int test_wait_extended = 3;
     WebDriver driver;
     TestUtils test;
     ConfigReader configReader;
@@ -40,6 +40,20 @@ public class LoginPage {
     @FindBy(css = "select#userSelect")
     WebElement customerDropDownSelect;
 
+    @FindBy(css = ".ng-scope > .ng-scope form[role='form'] > .btn.btn-default")
+    WebElement loginButton;
+
+    @FindBy(css = ".ng-scope > .ng-scope  .ng-scope > div > div:nth-of-type(1) > strong")
+    WebElement welcomeText;
+
+    @FindBy(xpath = "//body[@class='ng-scope']/div[@class='ng-scope']//button[@class='btn logout']")
+    WebElement logOutButton;
+
+    @FindBy(css = "select#accountSelect")
+    WebElement accNumberDropdown;
+
+    @FindBy(css = ".ng-scope > .ng-scope  .ng-scope > div > div:nth-of-type(2) > strong:nth-of-type(1)")
+    WebElement accNumberViewer;
 
 
     /**
@@ -59,10 +73,34 @@ public class LoginPage {
         test.validateElementsToHaveExpectedText(customerDropDownHeader, "Your Name :");
         test.selectDropDownByVisibleText(customerDropDownSelect, "Harry Potter");
         test.assertUrl(configReader.customerPageUrl());
+        test.waitForElementVisibility(loginButton, element_wait_max);
+        test.validateElementsToHaveExpectedText(loginButton, "Login");
+        test.waitForElementIsClickable(loginButton, element_wait_min);
+        test.clickingElement(loginButton);
+        test.waitForElementVisibility(welcomeText, element_wait_min);
+        test.validateElementsToHaveExpectedText(welcomeText, "Welcome Harry Potter !!");
+        test.assertUrl(configReader.customerLoginPageUrl());
+        test.selectDropDownByVisibleText(accNumberDropdown, "1005");
+        test.validateElementsToHaveExpectedText(accNumberViewer, "1005");
+        test.selectDropDownByVisibleText(accNumberDropdown, "1006");
+        test.validateElementsToHaveExpectedText(accNumberViewer, "1006");
+        test.selectDropDownByVisibleText(accNumberDropdown, "1004");
+        test.validateElementsToHaveExpectedText(accNumberViewer, "1004");
 
 
 
 
-        test.wait(3);
+
+        test.waitForElementIsClickable(logOutButton, element_wait_min);
+        test.validateElementsToHaveExpectedText(logOutButton, "Logout");
+        test.waitForElementIsClickable(logOutButton, element_wait_min);
+        test.clickingElement(logOutButton);
+        test.waitForElementVisibility(customerDropDownHeader, element_wait_max);
+        test.assertUrl(configReader.customerPageUrl());
+
+
+
+
+        test.wait(test_wait_normal);
     }
 }

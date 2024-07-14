@@ -38,4 +38,12 @@ public class ConfigReader {
             throw new RuntimeException("Customer App URL Not Specified In Config File");
     }
 
+    public String customerLoginPageUrl(){
+        String cusAppUrl = properties.getProperty("userLoginDashBoard");
+        if (cusAppUrl != null)
+            return cusAppUrl;
+        else
+            throw new RuntimeException("Customer App URL Not Specified In Config File");
+    }
+
 }
