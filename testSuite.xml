@@ -4,9 +4,11 @@
     <test name = "Bank Automation">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.selenium.app.Tests.UserRegistrationTest">
+            <class name="com.selenium.app.Tests.CustomerSuccessfulLoginTest">
                 <methods>
                     <include name="Test_01_01" />
+                    <include name="Test_01_02" />
+                    <include name="Test_01_03" />
                 </methods>
             </class>
         </classes>

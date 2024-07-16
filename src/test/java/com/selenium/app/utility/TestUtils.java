@@ -13,6 +13,8 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
+import static org.testng.Assert.*;
+
 public class TestUtils {
     WebDriver driver;
     Logger log = LogManager.getLogger("TestUtils");
@@ -38,7 +40,7 @@ public class TestUtils {
         log.info("Validating Title : [{}]", titleText);
         try {
             String pageTitle = driver.getTitle();
-            Assert.assertEquals(pageTitle, titleText);
+            assertEquals(pageTitle, titleText);
         }
         catch(Exception e){
             System.out.println("Navigation Issue : " + e.getMessage());
@@ -174,7 +176,7 @@ public class TestUtils {
         log.info("Validating URL: " + expectedUrl);
         try{
             String url = driver.getCurrentUrl();
-            Assert.assertEquals(url, expectedUrl);
+            assertEquals(url, expectedUrl);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -189,7 +191,7 @@ public class TestUtils {
         log.info("Expecting Text [{}] from element: [{}]", text, element);
         try{
             String eleText = element.getText().trim();
-            Assert.assertEquals(eleText, text);
+            assertEquals(eleText, text);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -251,6 +253,20 @@ public class TestUtils {
             }
         } catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public void assertingValueToBeBiggerThanExpectedValue (WebElement element,String value) {
+        log.info("Comparing Value of : [{}]", element);
+        try {
+            String valueText = element.getText();
+            int actualValue = Integer.parseInt(valueText);
+            String value2 = "20";
+            int expectedValue = Integer.parseInt(value2);
+            assertTrue(actualValue > expectedValue, "Actual value is not greater than expected value");
+        }
+        catch (Exception e){
+            System.out.println("Mismatch value for" + e.getMessage());
         }
     }
 

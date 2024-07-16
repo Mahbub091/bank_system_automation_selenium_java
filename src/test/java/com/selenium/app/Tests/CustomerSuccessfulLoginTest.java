@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class UserRegistrationTest extends BaseTest {
+public class CustomerSuccessfulLoginTest extends BaseTest {
 
     WebDriver driver;
     LoginPage loginPage;
@@ -25,10 +25,20 @@ public class UserRegistrationTest extends BaseTest {
         customUtils= new CustomUtils(driver);
         configReader = new ConfigReader();
     }
-    @Test(testName = "Test_01_01", description = "Validating Header Menu & Navigation")
+    @Test(testName = "Test_01_01", description = "Validating Successful Login & Logout for Harry Potter Account")
     public void Test_01_01() {
         loginPage.navigatingToWebPage();
-        loginPage.validationHeaderSections();
+        loginPage.userSuccessfulLogin();
+        loginPage.userSuccessfulLogout();
+    }
 
+    @Test(testName = "Test_01_02", description = "Harry Potter Makes Successful Deposit")
+    public void Test_01_02() {
+        loginPage.userMakesDeposit();
+    }
+
+    @Test(testName = "Test_01_03", description = "Validating Harry Potter Deposit Is Valid")
+    public void Test_01_03() {
+        loginPage.userDepositValidation();
     }
 }
